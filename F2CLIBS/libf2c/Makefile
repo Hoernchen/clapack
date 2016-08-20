@@ -20,7 +20,7 @@ include $(TOPDIR)/make.inc
 # compile, then strip unnecessary symbols
 .c.o:
 	$(CC) -c -DSkip_f2c_Undefs $(CFLAGS) $*.c
-	ld -r -x -o $*.xxx $*.o
+	arm-linux-androideabi-ld -r -x -o $*.xxx $*.o
 	mv $*.xxx $*.o
 ## Under Solaris (and other systems that do not understand ld -x),
 ## omit -x in the ld line above.
@@ -29,7 +29,7 @@ include $(TOPDIR)/make.inc
 
 MISC =	f77vers.o i77vers.o main.o s_rnge.o abort_.o exit_.o getarg_.o iargc_.o\
 	getenv_.o signal_.o s_stop.o s_paus.o system_.o cabs.o ctype.o\
-	derf_.o derfc_.o erf_.o erfc_.o sig_die.o uninit.o
+	derf_.o derfc_.o erf_.o erfc_.o sig_die.o 
 POW =	pow_ci.o pow_dd.o pow_di.o pow_hh.o pow_ii.o pow_ri.o pow_zi.o pow_zz.o
 CX =	c_abs.o c_cos.o c_div.o c_exp.o c_log.o c_sin.o c_sqrt.o
 DCX =	z_abs.o z_cos.o z_div.o z_exp.o z_log.o z_sin.o z_sqrt.o
@@ -72,7 +72,7 @@ OFILES = $(MISC) $(POW) $(CX) $(DCX) $(REAL) $(DBL) $(INT) \
 all: f2c.h signal1.h sysdep1.h libf2c.a clapack_install
 
 libf2c.a: $(OFILES)
-	ar r libf2c.a $?
+	arm-linux-androideabi-ar r libf2c.a $?
 	-ranlib libf2c.a
 
 ## Shared-library variant: the following rule works on Linux
@@ -182,10 +182,6 @@ xwsne.o:	lio.h
 xwsne.o:	fmt.h
 
 arith.h: arithchk.c
-	$(CC) $(CFLAGS) -DNO_FPINIT arithchk.c -lm ||\
-	 $(CC) -DNO_LONG_LONG $(CFLAGS) -DNO_FPINIT arithchk.c -lm
-	./a.out >arith.h
-	rm -f a.out arithchk.o
 
 check:
 	xsum Notice README abort_.c arithchk.c backspac.c c_abs.c c_cos.c \

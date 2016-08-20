@@ -213,15 +213,6 @@ f2c_srotg(real* a,
     return 0;
 }
 
-int
-f2c_crotg(complex* CA,
-          complex* CB,
-          complex* C,
-          real* S)
-{
-    cblas_crotg(*CA, *CB, *C, *S);
-    return 0;
-}
 
 int
 f2c_drotg(doublereal* a,
@@ -230,15 +221,6 @@ f2c_drotg(doublereal* a,
           doublereal* s)
 {
     cblas_drotg(*a, *b, *c, *s);
-    return 0;
-}
-int
-f2c_zrotg(doublecomplex* CA,
-          doublecomplex* CB,
-          doublecomplex* C,
-          doublereal* S)
-{
-    cblas_zrotg(*CA, *CB, *C, *S);
     return 0;
 }
 /*

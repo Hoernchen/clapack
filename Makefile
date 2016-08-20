@@ -16,8 +16,7 @@ lib: f2clib blaslib variants lapacklib tmglib
 clean: cleanlib cleantesting cleanblas_testing 
 
 lapack_install:
-	( cd INSTALL; $(MAKE); ./testlsame; ./testslamch; \
-	  ./testdlamch; ./testsecond; ./testdsecnd; ./testversion )
+	( cd INSTALL; $(MAKE) )
 
 blaslib:
 	( cd BLAS/SRC; $(MAKE) )
